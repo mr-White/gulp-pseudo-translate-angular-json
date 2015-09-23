@@ -4,6 +4,9 @@ Translate values of JSON file key value pairs into Pseudo for Angular-Translate
 ## Description
 Takes JSON and traverses the entire JSON tree for all key-value pairs. When it finds a key value pair, it pseudo translates the value and updates the key value pair. Therefore, the returned JSON from this plugin is in the same structure as the JSON provided. The only difference is all the key value pairs got updates with pseudo translations. Therefore, to properly use this plugin, you are going to want to use it in conjunction with a couple others.
 
+## Supports {{ }}, HTML, and Linked Id's
+This package is intended for Angular-Translate users. You are able to link to another key in your JSON via Angular-Translate, and this plugin supports those links. They will not be converted to psuedo characters. Same thing for HTML and found Angular Interpolate Expressions {{ }}.
+
 ## Setup the Task
 You are going to want to include 3 gulp plugins in your main gulpfile.js:
 
