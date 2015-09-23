@@ -1,21 +1,21 @@
 /**
- * Create Pseudo Based Language JSON Files from Any Other JSON Dictionary File
- *  - To be used on Angular-Translate JSON files
+ * Create Pseudo Translated JSON from Any Other JSON
+ * It does not matter how deep the JSON is, as long as it's composed of objects
+ * and key value pairs. All values of key values pairs are pseudo translated,
+ * but the keys and overall structure are maintained
+ *
+ * Intended to be used on Angular-Translate JSON files with namespace support
+ *
+ * @author   Michael Lage <michael@lagetech.com>
+ * @date     September 23, 2015
  *
  * Pesudo Translation Code Inspired From:
  * @see  http://www.pseudolocalize.com
- *
- * For guidelines on Gulp Plugins:
- * @see  https://koglerjs.com/verbiage/gulp
- *
- * To Help Understand How To Read/Write to Files via Gulp:
- * @see  https://github.com/babel/gulp-babel
  */
 'use strict';
 
 // Dependencies
 var gutil = require('gulp-util');
-// var _ = require('lodash');
 var PluginError = gutil.PluginError;
 var traverse = require('traverse');
 
@@ -110,11 +110,6 @@ function pseudoWord(before) {
 
 // Plugin level function(dealing with files)
 function pseudoTranslator(json, conf) {
-  // gutil.log('hi');
-  var whatIs = typeof json;
-  gutil.log('type = '+whatIs);
-  gutil.log('json.common.ignore = '+json.common.ignore);
-
   if (!json) {
     throw new PluginError(PLUGIN_NAME, 'JSON Translatable Data Is Missing');
   }
@@ -124,19 +119,13 @@ function pseudoTranslator(json, conf) {
 
   // Run your recursive function here to translate all values for all key-value pairs
   // found in 'json'
-  var count = 0;
-  var newJson = traverse(json).map(function(line) {
+  return traverse(json).map(function(line) {
     if (typeof line === 'object') {
       // skip objects
     } else {
-      count++;
       this.update(pseudoLine(line));
     }
   });
-
-  gutil.log('lines counted: '+count);
-
-  return newJson;
 }
 
 // Exporting the plugin main function
