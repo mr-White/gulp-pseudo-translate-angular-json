@@ -31,11 +31,17 @@ var extraWords = " lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
 // Translate Line & Check For Padding Config
 function pseudoLine(translatedLine) {
 
+  // Set flag to false
+  stopTranslatingString = false;
+  openMode = false;
   var pseudoTranslatedLine = pseudoWords(translatedLine);
 
-  var extraLength = Math.round(translatedLine.length * config.increasePercent / 100.0);
+  // To add padding or not ? Better not if it's an id link
+  if (stopTranslatingString) {
+    var extraLength = Math.round(translatedLine.length * config.increasePercent / 100.0);
 
-  pseudoTranslatedLine += pseudoWords(extraWords.substr(0, extraLength));
+    pseudoTranslatedLine += pseudoWords(extraWords.substr(0, extraLength));
+  }
 
   return pseudoTranslatedLine;
 }
@@ -191,18 +197,12 @@ function pseudoWords(text) {
       angularProtect(i, text);
     }
 
-    if (stopTranslatingString) {
-      translated += text.charAt(i);
-    } else if (openMode) {
+    if (stopTranslatingString || openMode) {
       translated += text.charAt(i);
     } else {
       translated += pseudoLetter(text.charAt(i));
     }
   }
-
-  // Reset flags for next string
-  openMode = false;
-  stopTranslatingString = false;
 
   return translated;
 }
