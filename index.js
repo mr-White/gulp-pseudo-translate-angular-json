@@ -13,37 +13,38 @@
  */
 'use strict';
 
-// Go!
-var PLUGIN_NAME = 'gulp-pseudo-translate-angular-json';
-
 // Dependencies
 var gutil = require('gulp-util');
 // var _ = require('lodash');
 var PluginError = gutil.PluginError;
+var traverse = require('traverse');
 
-// Configuraiton Options
-var increasePercent = 30; // 30%
+// Go!
+var PLUGIN_NAME = 'gulp-pseudo-translate-angular-json';
+var config = {
+  increasePercent: 30
+};
 
-function translate() {
-  // read in file
-  var lines = $('#before').val().split(/\n/);
+// function translate() {
+//   // read in file
+//   var lines = $('#before').val().split(/\n/);
 
-  var after = '';
+//   var after = '';
 
-  // Translate line by line (each key: value pair)
-  for (key in lines) { 
-    var line = String(lines[key]).trim();
-    after += PseudoLine(line) + '\n';
-  }
+//   // Translate line by line (each key: value pair)
+//   for (key in lines) { 
+//     var line = String(lines[key]).trim();
+//     after += PseudoLine(line) + '\n';
+//   }
 
-  // Write out file
-  $('#after').val(after);
-}
+//   // Write out file
+//   $('#after').val(after);
+// }
 
 function pseudoLine(before) {
   var after = pseudoWord(before);
 
-  var extraLength = Math.round(before.length * increasePercent / 100.0);
+  var extraLength = Math.round(before.length * config.increasePercent / 100.0);
 
   var extraWords = " lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eget urna laoreet, accumsan felis at, dapibus elit. In ut tempus mauris. Sed eget sagittis arcu, in condimentum purus. Curabitur vitae congue elit.";
 
@@ -125,16 +126,19 @@ function pseudoWord(before) {
 }
 
 // Plugin level function(dealing with files)
-function pseudoTranslator(json, config) {
+function pseudoTranslator(json, conf) {
   if (!json) {
     throw new PluginError(PLUGIN_NAME, 'JSON Translatable Data Is Missing');
   }
 
-  // config defaults
-  config = config || {};
+  // setup config
+  config = conf || config;
 
   // Run your recursive function here to translate all values for all key-value pairs
   // found in 'json'
+  traverse(json).forEach(function(line) {
+    this.update(pseudoLine(line));
+  });
   
   // Return post translations
   return json;
