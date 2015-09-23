@@ -133,6 +133,8 @@ function pseudoTranslator(opts) {
   // if (file.data) {
   //   data = _.extend(file.data, data);
   // }
+  // 
+  gutil.log('opts: ', opts); // should be in JSON form
 
   if (!data) {
     throw new PluginError(PLUGIN_NAME, 'Missing Dictionary!');
