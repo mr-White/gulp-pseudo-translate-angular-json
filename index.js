@@ -18,7 +18,7 @@ var PLUGIN_NAME = 'gulp-pseudo-translate-angular-json';
 
 // Dependencies
 var gutil = require('gulp-util');
-var data = require('gulp-data');
+// var data = require('gulp-data');
 // var _ = require('lodash');
 var PluginError = gutil.PluginError;
 
@@ -138,7 +138,8 @@ function pseudoTranslator(file, opts) {
     throw new PluginError(PLUGIN_NAME, 'Missing Dictionary!');
   }
 
-  gutil.log('Dictionary Found: ', file); // should be in JSON form
+  gutil.log('Dictionary Found file: ', file); // should be in JSON form
+  gutil.log('Dictionary Found data: ', data); // should be in JSON form
 
   return through.obj(function(file, enc, cb){
     file.contents = {'hi': 'hi!'};
