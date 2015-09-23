@@ -25,15 +25,15 @@ var config = {
   increasePercent: 30
 };
 var openMode = false; // flag for angularProtect
-
+var stopTranslatingString = false;
+var extraWords = " lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eget urna laoreet, accumsan felis at, dapibus elit. In ut tempus mauris. Sed eget sagittis arcu, in condimentum purus. Curabitur vitae congue elit.";
 
 // Translate Line & Check For Padding Config
 function pseudoLine(translatedLine) {
+
   var pseudoTranslatedLine = pseudoWords(translatedLine);
 
   var extraLength = Math.round(translatedLine.length * config.increasePercent / 100.0);
-
-  var extraWords = " lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eget urna laoreet, accumsan felis at, dapibus elit. In ut tempus mauris. Sed eget sagittis arcu, in condimentum purus. Curabitur vitae congue elit.";
 
   pseudoTranslatedLine += pseudoWords(extraWords.substr(0, extraLength));
 
@@ -76,7 +76,7 @@ function angularProtect(i, text) {
 
       break;
       case '@':
-        openMode = checkForLinkedIds(i, text);
+        stopTranslatingString = checkForLinkedIds(i, text);
     }
   }
 }
@@ -187,17 +187,22 @@ function pseudoWords(text) {
   for (var i = 0; i < text.length; i++) {
     // Look for: {{ }} < >
     // To set or unset openMode
-    angularProtect(i, text);
+    if (!stopTranslatingString) {
+      angularProtect(i, text);
+    }
 
-    if (openMode) {
+    if (stopTranslatingString) {
+      translated += text.charAt(i);
+    } else if (openMode) {
       translated += text.charAt(i);
     } else {
       translated += pseudoLetter(text.charAt(i));
     }
   }
 
-  // Reset mode for next string
+  // Reset flags for next string
   openMode = false;
+  stopTranslatingString = false;
 
   return translated;
 }
