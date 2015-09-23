@@ -25,22 +25,8 @@ var config = {
   increasePercent: 30
 };
 
-// function translate() {
-//   // read in file
-//   var lines = $('#before').val().split(/\n/);
 
-//   var after = '';
-
-//   // Translate line by line (each key: value pair)
-//   for (key in lines) { 
-//     var line = String(lines[key]).trim();
-//     after += PseudoLine(line) + '\n';
-//   }
-
-//   // Write out file
-//   $('#after').val(after);
-// }
-
+// Translate Line & Check For Padding Config
 function pseudoLine(translatedLine) {
   var pseudoTranslatedLine = pseudoWord(translatedLine);
 
@@ -50,14 +36,11 @@ function pseudoLine(translatedLine) {
 
   pseudoTranslatedLine += pseudoWord(extraWords.substr(0, extraLength));
 
-  // if ($('#addbrackets').prop('checked')) {
-
-  //   after = "[!!! " + after + " !!!]";
-  // }
-
   return pseudoTranslatedLine;
 }
 
+// Actual Translation. Goes through string, char by char,
+// replacing regular letters with pseudo versions
 function pseudoWord(before) {
   var after = '';
 
