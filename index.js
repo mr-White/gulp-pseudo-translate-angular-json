@@ -119,9 +119,11 @@ function pseudoTranslator(json, conf) {
 
   // Run your recursive function here to translate all values for all key-value pairs
   // found in 'json'
-  return traverse(json).forEach(function(line) {
+  json = traverse(json).map(function(line) {
     this.update(pseudoLine(line));
   });
+
+  return json;
 }
 
 // Exporting the plugin main function
