@@ -7,12 +7,15 @@ Takes JSON and traverses the entire JSON tree for all key-value pairs. When it f
 ## Setup the Task
 You are going to want to include 3 gulp plugins in your main gulpfile.js:
 
+```javascript
 var pseudoTranslator = require('gulp-pseudo-translate-angular-json');
 var jeditor = require('gulp-json-editor');
 var rename = require('gulp-rename');
+```
 
 Then you are going to want to create and invoke a task like the following:
 
+```javascript
 /**
  * @name   i18n:pseudo
  * @desc   Read English JSON Dictionary and Write Pseudo JSON Dictionary File
@@ -25,6 +28,7 @@ gulp.task('i18n:pseudo', function() {
   .pipe(rename('locale-pseudo.json')) // destination file name
   .pipe(gulp.dest(paths.src.i18n.dictionary)); // destination folder
 });
+```
 
 First, the JSON source file is supplied as a stream (Vinyl Object). We pipe that into jeditor so we can feed pure JSON to this plugin. Then we rename the streamed file and save the updated json specified in the folder of gulp.dest().
 
