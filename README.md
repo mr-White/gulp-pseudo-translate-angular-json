@@ -32,13 +32,23 @@ gulp.task('i18n:pseudo', function() {
 
 First, the JSON source file is supplied as a stream (Vinyl Object). We pipe that into jeditor so we can feed pure JSON to this plugin. The plugin does its magic (translates all key values pairs to pseudo). Then we rename the streamed file and save the updated json specified in the folder of gulp.dest().
 
-## Configuration
+## Parameters & Configuration
 ```javascript
 pseudoTranslator(json, config)
 ```
-2 params. The main JSON of the Dictionary that is being translated and a configuration file for overriding defaults. Currently, the default "padding" for every word translated into pseudo is 30%. So 30% of the word's length is added in random characters. As more config options are added, there will be ways to override the defaults here. 
+json is required.
+The config param is optional. 
 
-Finally, the config param is optional. Only required param is json.
+The json is an object with objects inside objects containing key-value pairs to be translated. 
+
+The config object is there only if you want to override a default config value. Currently, the default "padding" for every word translated into pseudo is 30%. So 30% of the word's length is added in random pseudo characters. You can override it, by passing in:
+```javascript
+var config = {increasePercent: 0};
+
+pseudoTranslate(json, config);
+```
+
+As more config options are added, there will be ways to override the defaults through this object.
 
 ## Notes
 I did not try this with an array and it will probably error out. This can be added for others, if desired.
