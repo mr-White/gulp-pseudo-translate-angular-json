@@ -24,6 +24,7 @@ var PLUGIN_NAME = 'gulp-pseudo-translate-angular-json';
 var config = {
   increasePercent: 0
 };
+var tCC = 0; // translated characters count
 var openMode = false; // flag for angularProtect
 var stopTranslatingString = false;
 var extraWords = " lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eget urna laoreet, accumsan felis at, dapibus elit. In ut tempus mauris. Sed eget sagittis arcu, in condimentum purus. Curabitur vitae congue elit.";
@@ -34,13 +35,16 @@ function pseudoLine(translatedLine) {
   // Set flag to false
   stopTranslatingString = false;
   openMode = false;
+  tCC = 0;
   var pseudoTranslatedLine = pseudoWords(translatedLine);
 
   // To add padding or not ? Better not if it's an id link
   if (! stopTranslatingString) {
-    var extraLength = Math.round(translatedLine.length * config.increasePercent / 100.0);
+    if (tCC > 0) {
+      var extraLength = Math.round(tCC * config.increasePercent / 100.0);
 
-    pseudoTranslatedLine += pseudoWords(extraWords.substr(0, extraLength));
+      pseudoTranslatedLine += pseudoWords(extraWords.substr(0, extraLength));
+    }
   }
 
   return pseudoTranslatedLine;
@@ -127,58 +131,58 @@ function checkForInterpolateExpression(i, text, start) {
 
 function pseudoLetter(c) {
     switch (c) {
-      case 'a': c = 'á'; break;
-      case 'b': c = 'β'; break;
-      case 'c': c = 'ç'; break;
-      case 'd': c = 'δ'; break;
-      case 'e': c = 'è'; break;
-      case 'f': c = 'ƒ'; break;
-      case 'g': c = 'ϱ'; break;
-      case 'h': c = 'λ'; break;
-      case 'i': c = 'ï'; break;
-      case 'j': c = 'J'; break;
-      case 'k': c = 'ƙ'; break;
-      case 'l': c = 'ℓ'; break;
-      case 'm': c = '₥'; break;
-      case 'n': c = 'ñ'; break;
-      case 'o': c = 'ô'; break;
-      case 'p': c = 'ƥ'; break;
-      case 'q': c = '9'; break;
-      case 'r': c = 'ř'; break;
-      case 's': c = 'ƨ'; break;
-      case 't': c = 'ƭ'; break;
-      case 'u': c = 'ú'; break;
-      case 'v': c = 'Ʋ'; break;
-      case 'w': c = 'ω'; break;
-      case 'x': c = 'ж'; break;
-      case 'y': c = '¥'; break;
-      case 'z': c = 'ƺ'; break;
-      case 'A': c = 'Â'; break;
-      case 'B': c = 'ß'; break;
-      case 'C': c = 'Ç'; break;
-      case 'D': c = 'Ð'; break;
-      case 'E': c = 'É'; break;
-      case 'F': c = 'F'; break;
-      case 'G': c = 'G'; break;
-      case 'H': c = 'H'; break;
-      case 'I': c = 'Ì'; break;
-      case 'J': c = 'J'; break;
-      case 'K': c = 'K'; break;
-      case 'L': c = '£'; break;
-      case 'M': c = 'M'; break;
-      case 'N': c = 'N'; break;
-      case 'O': c = 'Ó'; break;
-      case 'P': c = 'Þ'; break;
-      case 'Q': c = 'Q'; break;
-      case 'R': c = 'R'; break;
-      case 'S': c = '§'; break;
-      case 'T': c = 'T'; break;
-      case 'U': c = 'Û'; break;
-      case 'V': c = 'V'; break;
-      case 'W': c = 'W'; break;
-      case 'X': c = 'X'; break;
-      case 'Y': c = 'Ý'; break;
-      case 'Z': c = 'Z'; break;
+      case 'a': c = 'á'; tCC++; break;
+      case 'b': c = 'β'; tCC++; break;
+      case 'c': c = 'ç'; tCC++; break;
+      case 'd': c = 'δ'; tCC++; break;
+      case 'e': c = 'è'; tCC++; break;
+      case 'f': c = 'ƒ'; tCC++; break;
+      case 'g': c = 'ϱ'; tCC++; break;
+      case 'h': c = 'λ'; tCC++; break;
+      case 'i': c = 'ï'; tCC++; break;
+      case 'j': c = 'J'; tCC++; break;
+      case 'k': c = 'ƙ'; tCC++; break;
+      case 'l': c = 'ℓ'; tCC++; break;
+      case 'm': c = '₥'; tCC++; break;
+      case 'n': c = 'ñ'; tCC++; break;
+      case 'o': c = 'ô'; tCC++; break;
+      case 'p': c = 'ƥ'; tCC++; break;
+      case 'q': c = '9'; tCC++; break;
+      case 'r': c = 'ř'; tCC++; break;
+      case 's': c = 'ƨ'; tCC++; break;
+      case 't': c = 'ƭ'; tCC++; break;
+      case 'u': c = 'ú'; tCC++; break;
+      case 'v': c = 'Ʋ'; tCC++; break;
+      case 'w': c = 'ω'; tCC++; break;
+      case 'x': c = 'ж'; tCC++; break;
+      case 'y': c = '¥'; tCC++; break;
+      case 'z': c = 'ƺ'; tCC++; break;
+      case 'A': c = 'Â'; tCC++; break;
+      case 'B': c = 'ß'; tCC++; break;
+      case 'C': c = 'Ç'; tCC++; break;
+      case 'D': c = 'Ð'; tCC++; break;
+      case 'E': c = 'É'; tCC++; break;
+      case 'F': c = 'F'; tCC++; break;
+      case 'G': c = 'G'; tCC++; break;
+      case 'H': c = 'H'; tCC++; break;
+      case 'I': c = 'Ì'; tCC++; break;
+      case 'J': c = 'J'; tCC++; break;
+      case 'K': c = 'K'; tCC++; break;
+      case 'L': c = '£'; tCC++; break;
+      case 'M': c = 'M'; tCC++; break;
+      case 'N': c = 'N'; tCC++; break;
+      case 'O': c = 'Ó'; tCC++; break;
+      case 'P': c = 'Þ'; tCC++; break;
+      case 'Q': c = 'Q'; tCC++; break;
+      case 'R': c = 'R'; tCC++; break;
+      case 'S': c = '§'; tCC++; break;
+      case 'T': c = 'T'; tCC++; break;
+      case 'U': c = 'Û'; tCC++; break;
+      case 'V': c = 'V'; tCC++; break;
+      case 'W': c = 'W'; tCC++; break;
+      case 'X': c = 'X'; tCC++; break;
+      case 'Y': c = 'Ý'; tCC++; break;
+      case 'Z': c = 'Z'; tCC++; break;
     }
 
     return c;
