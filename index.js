@@ -37,7 +37,7 @@ function pseudoLine(translatedLine) {
   var pseudoTranslatedLine = pseudoWords(translatedLine);
 
   // To add padding or not ? Better not if it's an id link
-  if (stopTranslatingString) {
+  if (! stopTranslatingString) {
     var extraLength = Math.round(translatedLine.length * config.increasePercent / 100.0);
 
     pseudoTranslatedLine += pseudoWords(extraWords.substr(0, extraLength));
