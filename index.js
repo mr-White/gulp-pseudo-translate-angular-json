@@ -119,9 +119,13 @@ function pseudoTranslator(json, conf) {
 
   // Run your recursive function here to translate all values for all key-value pairs
   // found in 'json'
+  var count = 0;
   json = traverse(json).map(function(line) {
+    count++;
     this.update(pseudoLine(line));
   });
+
+  gutil.log('lines counted: ', count);
 
   return json;
 }
