@@ -110,6 +110,8 @@ function pseudoWord(before) {
 
 // Plugin level function(dealing with files)
 function pseudoTranslator(json, conf) {
+  gutil.log('hi');
+  
   if (!json) {
     throw new PluginError(PLUGIN_NAME, 'JSON Translatable Data Is Missing');
   }
@@ -125,7 +127,7 @@ function pseudoTranslator(json, conf) {
     this.update(pseudoLine(line));
   });
 
-  gutil.log('lines counted: ', count);
+  gutil.log('lines counted: '+count);
 
   return json;
 }
