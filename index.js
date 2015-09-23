@@ -48,6 +48,7 @@ function angularProtect(i, text) {
    * {{ SettingsCtrl.ProfileService.profile.mismatchedTravelNames.length }}
    * {{trophiesCount, select, 1{Trophy} other{Trophies}}} (only touch the plualized forms...!)
    * <a href=\"/web/agreement\" target=\"_blank\">User Agreement</a> (dont touch stuff inside < >)
+   * @:common.home
    */
 
   // Take a look at the next character, how important is it, to the context of the moment ?
@@ -58,7 +59,7 @@ function angularProtect(i, text) {
         openMode = false;
 
       break;
-      case '{':
+      case '}':
         openMode = ! checkForInterpolateExpression(i, text, false);
 
       break;
@@ -74,8 +75,24 @@ function angularProtect(i, text) {
         openMode = checkForInterpolateExpression(i, text, true);
 
       break;
+      case '@':
+        openMode = checkForLinkedIds(i, text);
     }
   }
+}
+
+/**
+ * [checkForLinkedIds description]
+ * @param  {[type]} i    [description]
+ * @param  {[type]} text [description]
+ * @return {[type]}      [description]
+ */
+function checkForLinkedIds(i, text) {
+  if (text.charAt(i+1) === ':') {
+    return true;
+  }
+
+  return false;
 }
 
 /**
@@ -166,14 +183,7 @@ function pseudoLetter(c) {
 function pseudoWords(text) {
   var translated = '';
 
-  // need support for :
-
-  /**
-   * {{ SettingsCtrl.ProfileService.profile.mismatchedTravelNames.length }}
-   * {{trophiesCount, select, 1{Trophy} other{Trophies}}} (only touch the plualized forms...!)
-   * <a href=\"/web/agreement\" target=\"_blank\">User Agreement</a> (dont touch stuff inside < >)
-   */
-
+  // Loop through string chars
   for (var i = 0; i < text.length; i++) {
     // Look for: {{ }} < >
     // To set or unset openMode
