@@ -110,8 +110,11 @@ function pseudoWord(before) {
 
 // Plugin level function(dealing with files)
 function pseudoTranslator(json, conf) {
-  gutil.log('hi');
-  
+  // gutil.log('hi');
+  var whatIs = typeof json;
+  gutil.log('type = '+whatIs);
+  gutil.log('json.common.ignore = '+json.common.ignore);
+
   if (!json) {
     throw new PluginError(PLUGIN_NAME, 'JSON Translatable Data Is Missing');
   }
@@ -122,14 +125,18 @@ function pseudoTranslator(json, conf) {
   // Run your recursive function here to translate all values for all key-value pairs
   // found in 'json'
   var count = 0;
-  json = traverse(json).map(function(line) {
-    count++;
-    this.update(pseudoLine(line));
+  var newJson = traverse(json).map(function(line) {
+    if (typeof line === 'object') {
+      // skip objects
+    } else {
+      count++;
+      this.update(pseudoLine(line));
+    }
   });
 
   gutil.log('lines counted: '+count);
 
-  return json;
+  return newJson;
 }
 
 // Exporting the plugin main function
