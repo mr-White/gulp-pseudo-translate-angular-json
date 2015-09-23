@@ -1,6 +1,6 @@
 {
   "name": "gulp-pseudo-translate-angular-json",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "Translate values of key-value pairs of an Angular-Translate JSON File into Pseudo",
   "license": "MIT",
   "repository": "mr-White/gulp-pseudo-translate-angular-json",
@@ -29,10 +29,9 @@
   "dependencies": {
     "gulp-util": "^3.0.0",
     "lodash": "^3.1.0",
-    "through2": "^0.6.1"
+    "gulp-data": "^1.0.2"
   },
   "devDependencies": {
-    "gulp-data": "^1.0.2",
     "mocha": "*"
   }
 }

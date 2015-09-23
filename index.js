@@ -13,15 +13,14 @@
  */
 'use strict';
 
-// through2 is a thin wrapper around node transform streams
-// var through = require('through2');
+// Go!
+var PLUGIN_NAME = 'gulp-pseudo-translate-angular-json';
+
+// Dependencies
 var gutil = require('gulp-util');
 var data = require('gulp-data');
 // var _ = require('lodash');
 var PluginError = gutil.PluginError;
-
-// Consts
-const PLUGIN_NAME = 'gulp-pseudo-translate-angular-json';
 
 // Configuraiton Options
 var increasePercent = 30; // 30%
