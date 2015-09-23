@@ -41,12 +41,14 @@ The config param is optional.
 
 The json is an object with objects inside objects containing key-value pairs to be translated. 
 
-The config object is there only if you want to override a default config value. Currently, the default "padding" for every word translated into pseudo is 30%. So 30% of the word's length is added in random pseudo characters. You can override it, by passing in:
+The config object is there only if you want to override a default config value. Currently, the default "padding" for every word translated into pseudo is 0%. So 0% of the string's length is added in random pseudo characters. You can override it, by passing in:
 ```javascript
-var config = {increasePercent: 0};
+var config = {increasePercent: 30};
 
 pseudoTranslate(json, config);
 ```
+
+30% of the string's length will be added in pseudo characters.
 
 As more config options are added, there will be ways to override the defaults through this object.
 

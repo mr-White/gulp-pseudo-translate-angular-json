@@ -22,7 +22,7 @@ var traverse = require('traverse');
 // Go!
 var PLUGIN_NAME = 'gulp-pseudo-translate-angular-json';
 var config = {
-  increasePercent: 30
+  increasePercent: 0
 };
 var openMode = false; // flag for angularProtect
 var stopTranslatingString = false;
