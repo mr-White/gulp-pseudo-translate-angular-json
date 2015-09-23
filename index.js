@@ -18,7 +18,6 @@ var PLUGIN_NAME = 'gulp-pseudo-translate-angular-json';
 
 // Dependencies
 var gutil = require('gulp-util');
-// var data = require('gulp-data');
 // var _ = require('lodash');
 var PluginError = gutil.PluginError;
 
@@ -126,58 +125,19 @@ function pseudoWord(before) {
 }
 
 // Plugin level function(dealing with files)
-function pseudoTranslator(file, opts) {
-  opts = opts || {};
-  var data = opts.data || false;
-
-  // if (file.data) {
-  //   data = _.extend(file.data, data);
-  // }
-  // 
-  gutil.log('opts: ', opts); // should be in JSON form
-  gutil.log('file: ', file); // should be in JSON form
-
-  if (!data) {
-    throw new PluginError(PLUGIN_NAME, 'Missing Dictionary!');
+function pseudoTranslator(json, config) {
+  if (!json) {
+    throw new PluginError(PLUGIN_NAME, 'JSON Translatable Data Is Missing');
   }
 
-  gutil.log('Dictionary Found data: ', data); // should be in JSON form
+  // config defaults
+  config = config || {};
 
-  return data;
-
-  // return through.obj(function(file, enc, cb){
-  //   file.contents = {'hi': 'hi!'};
-  //   // if (file.isNull()) {
-  //   //   // return empty file
-  //   //   return cb(null, file);
-  //   // } else if (file.isBuffer()) {
-  //   //   file.contents = Buffer.concat([prefixText, file.contents]);
-  //   // }
-  //   // if (file.isStream()) {
-  //   //   file.contents = file.contents.pipe(prefixStream(prefixText));
-  //   // }
-
-  //   cb(null, file);
-  // });
-  // fileName = new Buffer(fileName); // allocate ahead of time
-
-  // // Creating a stream through which each file will pass
-  // return through.obj(function(file, enc, cb) {
-  //   if (file.isNull()) {
-  //     // return empty file
-  //     return cb(null, file);
-  //   }
-  //   if (file.isBuffer()) {
-  //     file.contents = Buffer.concat([prefixText, file.contents]);
-  //   }
-  //   if (file.isStream()) {
-  //     file.contents = file.contents.pipe(prefixStream(prefixText));
-  //   }
-
-  //   cb(null, file);
-
-  // });
-
+  // Run your recursive function here to translate all values for all key-value pairs
+  // found in 'json'
+  
+  // Return post translations
+  return json;
 }
 
 // Exporting the plugin main function
