@@ -126,35 +126,36 @@ function pseudoWord(before) {
 }
 
 // Plugin level function(dealing with files)
-function pseudoTranslator(file, opts) {
+function pseudoTranslator(opts) {
   opts = opts || {};
-  var data = opts.data || {};
+  var data = opts.data || false;
 
-  if (file.data) {
-    data = _.extend(file.data, data);
-  }
+  // if (file.data) {
+  //   data = _.extend(file.data, data);
+  // }
 
-  if (!file) {
+  if (!data) {
     throw new PluginError(PLUGIN_NAME, 'Missing Dictionary!');
   }
 
-  gutil.log('Dictionary Found file: ', file); // should be in JSON form
   gutil.log('Dictionary Found data: ', data); // should be in JSON form
 
-  return through.obj(function(file, enc, cb){
-    file.contents = {'hi': 'hi!'};
-    // if (file.isNull()) {
-    //   // return empty file
-    //   return cb(null, file);
-    // } else if (file.isBuffer()) {
-    //   file.contents = Buffer.concat([prefixText, file.contents]);
-    // }
-    // if (file.isStream()) {
-    //   file.contents = file.contents.pipe(prefixStream(prefixText));
-    // }
+  return data;
 
-    cb(null, file);
-  });
+  // return through.obj(function(file, enc, cb){
+  //   file.contents = {'hi': 'hi!'};
+  //   // if (file.isNull()) {
+  //   //   // return empty file
+  //   //   return cb(null, file);
+  //   // } else if (file.isBuffer()) {
+  //   //   file.contents = Buffer.concat([prefixText, file.contents]);
+  //   // }
+  //   // if (file.isStream()) {
+  //   //   file.contents = file.contents.pipe(prefixStream(prefixText));
+  //   // }
+
+  //   cb(null, file);
+  // });
   // fileName = new Buffer(fileName); // allocate ahead of time
 
   // // Creating a stream through which each file will pass
