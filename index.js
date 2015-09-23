@@ -126,7 +126,7 @@ function pseudoWord(before) {
 }
 
 // Plugin level function(dealing with files)
-function pseudoTranslator(opts) {
+function pseudoTranslator(file, opts) {
   opts = opts || {};
   var data = opts.data || false;
 
@@ -135,6 +135,7 @@ function pseudoTranslator(opts) {
   // }
   // 
   gutil.log('opts: ', opts); // should be in JSON form
+  gutil.log('file: ', file); // should be in JSON form
 
   if (!data) {
     throw new PluginError(PLUGIN_NAME, 'Missing Dictionary!');
