@@ -20,11 +20,14 @@
   ],
   "keywords": [
     "gulpplugin",
+    "angular",
+    "angularJS",
     "angular-translate",
     "pseudo",
     "pseudo translation",
     "i18n",
-    "json"
+    "json",
+    "traverse"
   ],
   "dependencies": {
     "gulp-util": "^3.0.0",
