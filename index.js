@@ -41,21 +41,21 @@ var config = {
 //   $('#after').val(after);
 // }
 
-function pseudoLine(before) {
-  var after = pseudoWord(before);
+function pseudoLine(translatedLine) {
+  var pseudoTranslatedLine = pseudoWord(translatedLine);
 
-  var extraLength = Math.round(before.length * config.increasePercent / 100.0);
+  var extraLength = Math.round(translatedLine.length * config.increasePercent / 100.0);
 
   var extraWords = " lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eget urna laoreet, accumsan felis at, dapibus elit. In ut tempus mauris. Sed eget sagittis arcu, in condimentum purus. Curabitur vitae congue elit.";
 
-  after += pseudoWord(extraWords.substr(0, extraLength));
+  pseudoTranslatedLine += pseudoWord(extraWords.substr(0, extraLength));
 
-  if ($('#addbrackets').prop('checked')) {
+  // if ($('#addbrackets').prop('checked')) {
 
-    after = "[!!! " + after + " !!!]";
-  }
+  //   after = "[!!! " + after + " !!!]";
+  // }
 
-  return after;
+  return pseudoTranslatedLine;
 }
 
 function pseudoWord(before) {
@@ -136,12 +136,9 @@ function pseudoTranslator(json, conf) {
 
   // Run your recursive function here to translate all values for all key-value pairs
   // found in 'json'
-  traverse(json).forEach(function(line) {
+  return traverse(json).forEach(function(line) {
     this.update(pseudoLine(line));
   });
-  
-  // Return post translations
-  return json;
 }
 
 // Exporting the plugin main function
