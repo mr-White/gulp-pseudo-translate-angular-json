@@ -68,6 +68,19 @@ function protect(i, text) {
    * <a href=\"/web/agreement\" target=\"_blank\">User Agreement</a> (dont touch stuff inside < >)
    * @:common.home
    */
+  
+  /**
+   * @todo  build support for more complicated ngMessageFormat strings:
+        {{recipients.length, plural, offset:1
+          =0    {{{sender.name}} gave no gifts (\#=#)}
+          =1    {{{sender.name}} gave one gift to {{recipients[0].name}} (\#=#)}
+          one   {{{sender.name}} gave {{recipients[0].name}} and one other person a gift (\#=#)}
+          other {{{sender.name}} gave {{recipients[0].name}} and # other people a gift (\#=#)}
+        }}
+
+      Currently, it works pretty well, except "one" & "other" gets translated into pseudo:
+      {{recipients.length, plural, offset:1 =0    {{{sender.name}} ϱáƲè ñô ϱïƒƭƨ (\\#=#)} =1    {{{sender.name}} ϱáƲè ôñè ϱïƒƭ ƭô {{recipients[0].name}} (\\#=#)} ôñè   {{{sender.name}} ϱáƲè {{recipients[0].name}} áñδ ôñè ôƭλèř ƥèřƨôñ á ϱïƒƭ (\\#=#)} ôƭλèř {{{sender.name}} ϱáƲè {{recipients[0].name}} áñδ # ôƭλèř ƥèôƥℓè á ϱïƒƭ (\\#=#)} }}
+   */
 
   // Take a look at the next character, how important is it, to the context of the moment ?
   if (openMode) {

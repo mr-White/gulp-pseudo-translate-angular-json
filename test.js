@@ -69,7 +69,7 @@ describe('gulp-pseudo-translate-angular-json', function() {
 
   // Test for Skipping Angular Expressions but translated ngMessageFormat Copy
   describe('Text to Pseudo Conversion, Maintain Integrity of ngMessageFormat Expressions while converting only copy of those expressions to Pseudo', function() {
-  	it('recognized the ngMessageFormat and only translates the copy to be displayed, not the code', function(done){
+  	it('recognizes the ngMessageFormat and only translates the copy to be displayed, not the code', function(done){
   		var testJSON = {
   			'count': '{{count, select, 1{One} other{Many}}}'
   		};

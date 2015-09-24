@@ -1,11 +1,13 @@
 # gulp-pseudo-translate-angular-json
-Translate values of JSON file key value pairs into Pseudo for Angular-Translate 
+Translate values of JSON file key value pairs into Pseudo for [Angular-Translate](https://angular-translate.github.io/).
 
 ## Description
 Takes JSON and traverses the entire JSON tree for all key-value pairs. When it finds a key value pair, it pseudo translates the value and updates the key value pair. Therefore, the returned JSON from this plugin is in the same structure as the JSON provided. The only difference is all the key value pairs got updates with pseudo translations. Therefore, to properly use this plugin, you are going to want to use it in conjunction with a couple others.
 
-## Supports {{ angularExpressions }}, ngMessageFormat, HTML, and Linked Id's
-This package is intended for Angular-Translate users. You are able to link to another key in your JSON via Angular-Translate, and this plugin supports those links. They will not be converted to psuedo characters. Same thing for HTML. Also, Angular Interpolate Expressions are skipped. Stuff that looks like: {{ someVar }} are skipped so the Pseudo language does not break your AngularJS app. Finally, there is a special exception for Pluralization using ngMessageFormat. Words in the ngMessageFormat are translated into Pseudo!
+## Supports {{ angularExpressions }}, ngMessageFormat, HTML, and Linked Id's, [Angular-Translate](https://angular-translate.github.io/) Namespacing
+This package is intended for [Angular-Translate](https://angular-translate.github.io/) users. You are able to link to another key in your JSON via [Angular-Translate](https://angular-translate.github.io/), and this plugin [supports those links](https://angular-translate.github.io/docs/#/guide/02_getting-started). They will not be converted to psuedo characters. Same thing for HTML. Also, Angular Interpolate Expressions are skipped. Stuff that looks like: {{ someVar }} are skipped so the Pseudo language does not break your AngularJS app. Finally, there is a special exception for Pluralization using ngMessageFormat. Words in the [ngMessageFormat](https://docs.angularjs.org/api/ngMessageFormat/service/$$messageFormat) are translated into Pseudo!
+
+Since we traverse the JSON object directly and update the values of the object, we maintain the same structure of JSON so [Angular-Translate](https://angular-translate.github.io/)'s namespacing feature is supported naturally.
 
 English Dictionary Value:
 ```javascript
