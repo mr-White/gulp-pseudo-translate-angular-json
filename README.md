@@ -51,7 +51,7 @@ var config = {increasePercent: 30};
 pseudoTranslate(json, config);
 ```
 
-30% of the string's length will be added in pseudo characters.
+That code above will count the number of characters translated, then take 30% of that number and add that many pseudo characters to each string. That way, you can adjust how much stress you want to put your UI under while testing.
 
 As more config options are added, there will be ways to override the defaults through this object.
 
