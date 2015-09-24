@@ -25,16 +25,18 @@ var config = {
   increasePercent: 0
 };
 var tCC = 0; // translated characters count
-var openMode = false; // flag for angularProtect
+var openMode = false; // flag for protect
 var stopTranslatingString = false;
+var openModeException = false;
 var extraWords = " lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eget urna laoreet, accumsan felis at, dapibus elit. In ut tempus mauris. Sed eget sagittis arcu, in condimentum purus. Curabitur vitae congue elit.";
 
 // Translate Line & Check For Padding Config
 function pseudoLine(translatedLine) {
 
-  // Set flag to false
+  // Set flags to false
   stopTranslatingString = false;
   openMode = false;
+  openModeException = false;
   tCC = 0;
   var pseudoTranslatedLine = pseudoWords(translatedLine);
 
@@ -50,8 +52,14 @@ function pseudoLine(translatedLine) {
   return pseudoTranslatedLine;
 }
 
-
-function angularProtect(i, text) {
+/**
+ * [protect description]
+ * @description     Look for things to be skipped from Pseudo Translation
+ * @param  {[type]} i    [description]
+ * @param  {[type]} text [description]
+ * @return {[type]}      [description]
+ */
+function protect(i, text) {
   /**
    * Stop pseudoWords from destroying these:
    *
@@ -70,7 +78,16 @@ function angularProtect(i, text) {
 
       break;
       case '}':
-        openMode = ! checkForInterpolateExpression(i, text, false);
+        if (openModeException) {
+          openModeException = false;
+        } else {
+          openMode = ! checkForInterpolateExpression(i, text, false);
+        }
+
+      break;
+      case '{':
+        // maybe special case of no open mode
+        openModeException = checkForNgMessageFormat(i, text);
 
       break;
     }
@@ -89,6 +106,17 @@ function angularProtect(i, text) {
         stopTranslatingString = checkForLinkedIds(i, text);
     }
   }
+}
+
+function checkForNgMessageFormat(i, text) {
+  // we need the next character to NOT be {, and there is at least } before the end of the text
+  if (text.charAt(i+1) !== '{' && text.charAt(i-1) !== '{') {
+    return true;
+  }
+
+  // {{openMode, select, 1{Test} other{Tests}}} test~
+
+  return false;
 }
 
 /**
@@ -129,6 +157,12 @@ function checkForInterpolateExpression(i, text, start) {
   return false;
 }
 
+/**
+ * [pseudoLetter description]
+ * @description     Translate Letter to Pseudo Letter
+ * @param  {[type]} c [description]
+ * @return {[type]}   [description]
+ */
 function pseudoLetter(c) {
     switch (c) {
       case 'a': c = 'á'; tCC++; break;
@@ -145,9 +179,9 @@ function pseudoLetter(c) {
       case 'l': c = 'ℓ'; tCC++; break;
       case 'm': c = '₥'; tCC++; break;
       case 'n': c = 'ñ'; tCC++; break;
-      case 'o': c = 'ô'; tCC++; break;
+      case 'o': c = 'ô'; tCC++; break; // One Óñè
       case 'p': c = 'ƥ'; tCC++; break;
-      case 'q': c = '9'; tCC++; break;
+      case 'q': c = '9'; tCC++; break; // Many Máñ¥
       case 'r': c = 'ř'; tCC++; break;
       case 's': c = 'ƨ'; tCC++; break;
       case 't': c = 'ƭ'; tCC++; break;
@@ -198,10 +232,10 @@ function pseudoWords(text) {
     // Look for: {{ }} < >
     // To set or unset openMode
     if (!stopTranslatingString) {
-      angularProtect(i, text);
+      protect(i, text);
     }
 
-    if (stopTranslatingString || openMode) {
+    if (stopTranslatingString || (openMode && !openModeException)) {
       translated += text.charAt(i);
     } else {
       translated += pseudoLetter(text.charAt(i));

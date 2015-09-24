@@ -4,8 +4,20 @@ Translate values of JSON file key value pairs into Pseudo for Angular-Translate
 ## Description
 Takes JSON and traverses the entire JSON tree for all key-value pairs. When it finds a key value pair, it pseudo translates the value and updates the key value pair. Therefore, the returned JSON from this plugin is in the same structure as the JSON provided. The only difference is all the key value pairs got updates with pseudo translations. Therefore, to properly use this plugin, you are going to want to use it in conjunction with a couple others.
 
-## Supports {{ }}, HTML, and Linked Id's
-This package is intended for Angular-Translate users. You are able to link to another key in your JSON via Angular-Translate, and this plugin supports those links. They will not be converted to psuedo characters. Same thing for HTML and found Angular Interpolate Expressions {{ }}.
+## Supports {{ angularExpressions }}, ngMessageFormat, HTML, and Linked Id's
+This package is intended for Angular-Translate users. You are able to link to another key in your JSON via Angular-Translate, and this plugin supports those links. They will not be converted to psuedo characters. Same thing for HTML. Also, Angular Interpolate Expressions are skipped. Stuff that looks like: {{ someVar }} are skipped so the Pseudo language does not break your AngularJS app. Finally, there is a special exception for Pluralization using ngMessageFormat. Words in the ngMessageFormat are translated into Pseudo!
+
+English Dictionary Value:
+```javascript
+'count': '{{count, select, 1{One} other{Many}}}',
+'linkedIdEx': '@:common.hello'
+```
+
+Pseudo Translated Version:
+```javascript
+'count': '{{count, select, 1{Óñè} other{Máñ¥}}}',
+'linkedIdEx': '@:common.hello'
+```
 
 ## Setup the Task
 You are going to want to include 3 gulp plugins in your main gulpfile.js:
