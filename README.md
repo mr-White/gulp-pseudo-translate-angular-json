@@ -69,3 +69,12 @@ As more config options are added, there will be ways to override the defaults th
 
 ## Notes
 I did not try this with an array and it will probably error out. This can be added for others, if desired.
+
+## Testing
+If you want to try out the tests included. Run in a terminal at the root folder of the project:
+```javascript
+npm install -dev
+npm test
+```
+
+Included are some Mocha tests that tests the main features.
